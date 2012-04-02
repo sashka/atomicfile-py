@@ -61,6 +61,14 @@ class AtomicFile(object):
         self.write = self._fp.write
         self.fileno = self._fp.fileno
 
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_value, exc_tb):
+        if exc_type:
+            return
+        self.close()
+
     def close(self):
         if not self._fp.closed:
             self._fp.close()
