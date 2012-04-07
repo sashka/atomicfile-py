@@ -12,7 +12,8 @@ os.umask(umask)
 def copymode(src, dst, mode=None):
     """
     Copy the file mode from the file at path |src| to |dst|.
-    If |src| doesn't exist, we're using |mode| instead. If |mode| is None, we're using |umask|.
+    If |src| doesn't exist, we're using |mode| instead. If |mode| is None,
+    we're using |umask|.
     """
     try:
         st_mode = os.lstat(src).st_mode & 0777
@@ -49,8 +50,10 @@ class AtomicFile(object):
     Writeable file object that atomically updates a file.
 
     All writes will go to a temporary file.
-    Call close() when you are done writing, and AtomicFile will rename the temporary copy to the original name,
-    making the changes visible. If the object is destroyed without being closed, all your writes are discarded.
+    Call close() when you are done writing, and AtomicFile will rename
+    the temporary copy to the original name, making the changes visible.
+    If the object is destroyed without being closed, all your writes are
+    discarded.
     """
     def __init__(self, name, mode="w+b", createmode=None):
         self.__name = name  # permanent name
@@ -85,4 +88,3 @@ class AtomicFile(object):
     def __del__(self):
         if getattr(self, "_fp", None):  # constructor actually did something
             self.discard()
-
