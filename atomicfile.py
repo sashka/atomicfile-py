@@ -83,5 +83,6 @@ class AtomicFile(object):
             self._fp.close()
 
     def __del__(self):
-        if getattr(self, "_fp"):  # constructor actually did something
+        if getattr(self, "_fp", None):  # constructor actually did something
             self.discard()
+
