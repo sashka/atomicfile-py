@@ -1,6 +1,7 @@
-#!/usr/bin/env python
 # encoding: utf-8
+
 from __future__ import with_statement
+
 import os
 import unittest
 
@@ -14,7 +15,6 @@ def create_test_file(filename):
 
 
 class AtomicFileTest(unittest.TestCase):
-
     def setUp(self):
         self.filename = 'test-atomicfile.txt'
 

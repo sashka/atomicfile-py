@@ -1,8 +1,8 @@
-# coding=utf-8
+# encoding: utf-8
 
-import tempfile
-import os
 import errno
+import os
+import tempfile
 
 
 umask = os.umask(0)
