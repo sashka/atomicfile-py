@@ -1,0 +1,17 @@
+Source: python-atomicfile
+Section: python
+Priority: optional
+Maintainer: Alexander Saltanov <asd@mokote.com>
+XS-Python-Version: >= 2.6
+Build-Depends: debhelper (>= 7.0.50), python-all-dev (>= 2.6)
+Standards-Version: 3.9.1
+Homepage: https://github.com/sashka/atomicfile
+Vcs-Git: git://github.com/sashka/atomicfile.git
+Vcs-Browser: https://github.com/sashka/atomicfile
+
+Package: python-atomicfile
+Architecture: all
+Depends: ${python:Depends}
+Provides: ${python:Provides}
+Breaks: ${python:Breaks}
+Description: Writeable file object that atomically updates a file.
