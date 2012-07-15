@@ -16,14 +16,14 @@ def copymode(src, dst, mode=None):
     we're using |umask|.
     """
     try:
-        st_mode = os.lstat(src).st_mode & 0777
+        st_mode = os.lstat(src).st_mode & 0o777
     except OSError, inst:
         if inst.errno != errno.ENOENT:
             raise
         st_mode = mode
         if st_mode is None:
             st_mode = ~umask
-        st_mode &= 0666
+        st_mode &= 0o666
     os.chmod(dst, st_mode)
 
 
