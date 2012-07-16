@@ -17,7 +17,7 @@ def copymode(src, dst, mode=None):
     """
     try:
         st_mode = os.lstat(src).st_mode & 0o777
-    except OSError, inst:
+    except OSError as inst:
         if inst.errno != errno.ENOENT:
             raise
         st_mode = mode
