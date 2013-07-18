@@ -9,55 +9,47 @@ umask = os.umask(0)
 os.umask(umask)
 
 
-def copymode(src, dst, mode=None):
+def _maketemp(name, createmode=None):
     """
-    Copy the file mode from the file at path |src| to |dst|.
-    If |src| doesn't exist, we're using |mode| instead. If |mode| is None,
-    we're using |umask|.
-    """
-    try:
-        st_mode = os.lstat(src).st_mode & 0o777
-    except OSError as inst:
-        if inst.errno != errno.ENOENT:
-            raise
-        st_mode = mode
-        if st_mode is None:
-            st_mode = ~umask
-        st_mode &= 0o666
-    os.chmod(dst, st_mode)
-
-
-def mktemp(name, createmode=None):
-    """
-    Create a temporary file with the similar |name|.
-    The permission bits are copied from the original file or |createmode|.
+    Create a temporary file with the filename similar the given ``name``.
+    The permission bits are copied from the original file or ``createmode``.
 
     Returns: the name of the temporary file.
     """
     d, fn = os.path.split(name)
-    fd, temp = tempfile.mkstemp(prefix='.%s-' % fn, dir=d)
+    fd, tempname = tempfile.mkstemp(prefix=".%s-" % fn, dir=d)
     os.close(fd)
 
     # Temporary files are created with mode 0600, which is usually not
-    # what we want.  If the original file already exists, just copy
-    # its mode.  Otherwise, manually obey umask.
-    copymode(name, temp, createmode)
-    return temp
+    # what we want. If the original file already exists, just copy its mode.
+    # Otherwise, manually obey umask.
+    try:
+        st_mode = os.lstat(name).st_mode & 0o777
+    except OSError as err:
+        if err.errno != errno.ENOENT:
+            raise
+        st_mode = createmode
+        if st_mode is None:
+            st_mode = ~umask
+        st_mode &= 0o666
+    os.chmod(tempname, st_mode)
+
+    return tempname
 
 
 class AtomicFile(object):
     """
-    Writeable file object that atomically updates a file.
+    Writeable file object that atomically writes a file.
 
     All writes will go to a temporary file.
-    Call close() when you are done writing, and AtomicFile will rename
+    Call ``close()`` when you are done writing, and AtomicFile will rename
     the temporary copy to the original name, making the changes visible.
     If the object is destroyed without being closed, all your writes are
     discarded.
     """
     def __init__(self, name, mode="w+b", createmode=None):
         self.__name = name  # permanent name
-        self._tempname = mktemp(name, createmode=createmode)
+        self._tempname = _maketemp(name, createmode=createmode)
         self._fp = open(self._tempname, mode)
 
         # delegated methods
