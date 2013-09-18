@@ -8,6 +8,7 @@ setup(
     author='Alexander Saltanov',
     author_email='asd@mokote.com',
     url='http://github.com/sashka/atomicfile',
+    license='MIT',
     description='Writeable file object that atomically updates a file.',
     py_modules=['atomicfile'],
     test_suite='tests',
