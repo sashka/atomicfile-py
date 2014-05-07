@@ -22,3 +22,6 @@ Install
 To install AtomicFile, simply: ::
 
     pip install atomicfile
+
+
+You can buy me a cup of coffee or a glass of wine. Bitcoin could be sent to ``1Boahzk5jMTebqiKVESzbnVWTvBTGnAvYf``
