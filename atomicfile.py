@@ -3,6 +3,7 @@
 import errno
 import os
 import tempfile
+import codecs
 
 
 umask = os.umask(0)
@@ -47,10 +48,13 @@ class AtomicFile(object):
     If the object is destroyed without being closed, all your writes are
     discarded.
     """
-    def __init__(self, name, mode="w+b", createmode=None):
+    def __init__(self, name, mode="w+b", createmode=None, encoding=None):
         self.__name = name  # permanent name
         self._tempname = _maketemp(name, createmode=createmode)
-        self._fp = open(self._tempname, mode)
+        if encoding:
+            self._fp = codecs.open(self._tempname, mode, encoding)
+        else:
+            self._fp = open(self._tempname, mode)
 
         # delegated methods
         self.write = self._fp.write
