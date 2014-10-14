@@ -47,6 +47,8 @@ class AtomicFile(object):
     the temporary copy to the original name, making the changes visible.
     If the object is destroyed without being closed, all your writes are
     discarded.
+    If an ``encoding`` argument is specified, codecs.open will be called to open
+    the file in the wanted encoding.
     """
     def __init__(self, name, mode="w+b", createmode=None, encoding=None):
         self.__name = name  # permanent name
