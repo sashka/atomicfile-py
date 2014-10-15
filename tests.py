@@ -2,6 +2,7 @@
 
 import os
 import unittest
+import codecs
 
 from atomicfile import AtomicFile
 
@@ -70,6 +71,26 @@ class AtomicFileTest(unittest.TestCase):
         st_mode = os.lstat(self.filename).st_mode & 0o777
         try:
             self.assertEqual(st_mode, expected_mode)
+        finally:
+            os.remove(self.filename)
+
+    def test_encoding(self):
+        data = u"Unicode Capit\xe1n is written by AtomicFile.\n"
+        encoding = "utf-8"
+        af = AtomicFile(self.filename, "wb", encoding=encoding)
+        af.write(data)
+        af.close()
+
+        f = codecs.open(self.filename, "rb", encoding=encoding)
+        decoded_result = f.read()
+        f.close()
+        f = open(self.filename, "rb")
+        raw_result = f.read()
+        f.close()
+
+        try:
+            self.assertEqual(data, decoded_result)
+            self.assertEqual(data.encode(encoding), raw_result)
         finally:
             os.remove(self.filename)
 
