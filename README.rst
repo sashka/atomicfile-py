@@ -4,6 +4,9 @@ AtomicFile
 .. image:: https://travis-ci.org/sashka/atomicfile.png?branch=master
         :target: https://travis-ci.org/sashka/atomicfile
 
+.. image:: http://img.shields.io/gratipay/sashka.svg
+        :target: https://www.gratipay.com/sashka/
+
 
 Writeable file object that atomically updates a file.
 
@@ -12,7 +15,7 @@ All writes will go to a temporary file. Call ``close()`` explicitly when you are
 AtomicFile is friendly to ``with`` statement. ::
 
     from atomicfile import AtomicFile
-    
+
     with AtomicFile("panic.txt", "w") as f:
         f.write(json.dumps(big_data_array_100MB, sort_keys=True, indent=4))
 
@@ -23,5 +26,3 @@ To install AtomicFile, simply: ::
 
     pip install atomicfile
 
-
-You can buy me a cup of coffee or a glass of wine. Bitcoin could be sent to ``1Boahzk5jMTebqiKVESzbnVWTvBTGnAvYf``

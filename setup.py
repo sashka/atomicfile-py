@@ -4,7 +4,7 @@ from setuptools import setup
 
 setup(
     name='atomicfile',
-    version='0.1',
+    version='1.0',
     author='Alexander Saltanov',
     author_email='asd@mokote.com',
     url='http://github.com/sashka/atomicfile',
