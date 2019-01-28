@@ -1,7 +1,7 @@
 AtomicFile
 ==========
 
-.. image:: https://travis-ci.org/sashka/atomicfile.png?branch=master
+.. image:: https://travis-ci.org/sashka/atomicfile.svg?branch=master
         :target: https://travis-ci.org/sashka/atomicfile
 
 
