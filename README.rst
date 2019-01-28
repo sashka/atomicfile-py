@@ -4,9 +4,6 @@ AtomicFile
 .. image:: https://travis-ci.org/sashka/atomicfile.png?branch=master
         :target: https://travis-ci.org/sashka/atomicfile
 
-.. image:: http://img.shields.io/gratipay/sashka.svg
-        :target: https://www.gratipay.com/sashka/
-
 
 Writeable file object that atomically updates a file.
 
